@@ -1,9 +1,9 @@
 {
 	"$schema": "https://apify.com/schemas/v1/actor.ide.json",
 	"actorSpecification": 1,
-	"name": "carcensor-price-range-mcp",
-	"title": "carsensor Used-Car Price Range MCP Server",
-	"description": "MCP server exposing resolvePriceRange: given a car model and year, returns a fair-price range (min/max/median) computed from carsensor.net's own official used-car market-price data.",
+	"name": "carsensor-price-range-mcp",
+	"title": "carsensor Price Range MCP Server for AI Agents",
+	"description": "MCP server exposing resolvePriceRange: given a car model and year, returns a market-price range (min/max/median) computed from carsensor.net's own official used-car market-price data.",
 	"version": "0.1",
 	"buildTag": "latest",
 	"usesStandbyMode": true,

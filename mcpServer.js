@@ -29,17 +29,17 @@ import { Actor } from 'apify';
 import { resolvePriceRange } from './src/resolvePriceRange.js';
 
 const server = new McpServer({
-    name: 'carcensor-price-range-mcp',
+    name: 'carsensor-price-range-mcp',
     version: '0.1.0',
 });
 
 server.registerTool(
     'resolvePriceRange',
     {
-        title: '中古車の適正価格レンジ推定',
+        title: '中古車の市場価格レンジ推定',
         description:
             '車種名と年式から、carsensor.net自身が公開する相場(souba)ページの「価格×年式」集計データを基に、' +
-            '適正価格レンジ(最小・最大・中央値)を返す。carsensorの検索結果から車種を特定できない場合、または' +
+            '市場価格レンジ(最小・最大・中央値)を返す。carsensorの検索結果から車種を特定できない場合、または' +
             '該当年式の相場データが無い場合はok:falseで理由を返す。走行距離は未対応(v2で追加予定)。',
         inputSchema: {
             carModel: z.string().describe('車種名(carsensorのフリーワード検索と同じ書式。例: "プリウス", "N-BOX")'),

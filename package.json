@@ -1,5 +1,5 @@
 {
-  "name": "carcensor-price-range-mcp",
+  "name": "carsensor-price-range-mcp",
   "version": "0.1.0",
   "main": "mcpServer.js",
   "type": "module",
@@ -11,7 +11,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "carsensor.net の相場(souba)ページから車種×年式の適正価格レンジを返す、単一ツールのMCPサーバー。ローカルstdio起動(mcpServer.js)とApify Actor/Standbyモード経由のHTTPホスティング(src/main.js)の両方に対応。",
+  "description": "carsensor.net の相場(souba)ページから車種×年式の市場価格レンジを返す、単一ツールのMCPサーバー。ローカルstdio起動(mcpServer.js)とApify Actor/Standbyモード経由のHTTPホスティング(src/main.js)の両方に対応。",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",
     "apify": "^3.7.2",
