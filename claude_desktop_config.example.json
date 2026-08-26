@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "carcensor-price-range": {
+      "command": "node",
+      "args": ["C:\\Users\\tarutani.mahiro\\carcensor-mcp\\mcpServer.js"]
+    }
+  }
+}

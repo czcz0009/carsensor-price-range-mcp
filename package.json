@@ -1,0 +1,20 @@
+{
+  "name": "carcensor-price-range-mcp",
+  "version": "0.1.0",
+  "main": "mcpServer.js",
+  "type": "module",
+  "scripts": {
+    "mcp": "node mcpServer.js",
+    "mcp:test-client": "node scripts/testClient.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "carsensor.net の相場(souba)ページから車種×年式の適正価格レンジを返す、単一ツールのMCPサーバー(Week 2 MVP)。",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "cheerio": "^1.0.0",
+    "got-scraping": "^4.0.0",
+    "zod": "^4.4.3"
+  }
+}
