@@ -1,0 +1,36 @@
+{
+	"actorSpecification": 1,
+	"fields": {
+		"type": "object",
+		"properties": {
+			"note": {
+				"type": "string",
+				"title": "Note",
+				"description": "Explains that this Actor is an MCP server with no output of its own in a normal run — see output_schema.json and the README for the real product output, which is returned directly to an MCP client as the resolvePriceRange tool-call response, not written to this dataset."
+			},
+			"documentationUrl": {
+				"type": "string",
+				"format": "uri",
+				"title": "Documentation URL",
+				"description": "Link to this Actor's Store page / README for MCP client setup instructions."
+			}
+		},
+		"required": ["note", "documentationUrl"]
+	},
+	"views": {
+		"overview": {
+			"title": "Overview",
+			"description": "This dataset only ever contains one informational record, written when the Actor is run outside of Standby mode (which has nothing to do). The real product output is the resolvePriceRange tool-call response documented in output_schema.json — this Actor does not write its actual results here.",
+			"transformation": {
+				"fields": ["note", "documentationUrl"]
+			},
+			"display": {
+				"component": "table",
+				"properties": {
+					"note": { "label": "Note", "format": "text" },
+					"documentationUrl": { "label": "Documentation", "format": "link" }
+				}
+			}
+		}
+	}
+}

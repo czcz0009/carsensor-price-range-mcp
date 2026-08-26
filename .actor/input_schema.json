@@ -1,0 +1,8 @@
+{
+	"title": "carsensor Used-Car Price Range MCP Server input",
+	"description": "This Actor is an MCP server with no static run-time input — it only does real work when started in Apify Standby mode and called by an MCP client. Its single tool, resolvePriceRange, takes carModel and year as call-time parameters; see README.md for details.",
+	"type": "object",
+	"schemaVersion": 1,
+	"properties": {},
+	"required": []
+}

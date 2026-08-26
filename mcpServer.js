@@ -1,5 +1,5 @@
 /**
- * carcensor-price-range-mcp — MCP サーバー(Week 2 MVP)
+ * carcensor-price-range-mcp — MCP サーバー本体
  *
  * carcensor Actor(carsensor-resale-value-scout)の「価格レンジ推定」ロジックだけを
  * 切り出した、単一ツールのMCPサーバー。分析フェーズ(Week 1)で特定した設計に基づく:
@@ -10,15 +10,21 @@
  *
  * スコープ外(意図的に未実装、次のWeek):
  *   - 走行距離入力(v2)
- *   - MCPサーバーとしての課金設計(Week 3)
  *   - 複数ディレクトリへの掲載(Week 5)
  *
- * 起動方法: node mcpServer.js (MCPクライアントからstdio経由で起動される想定)
+ * 起動方法:
+ *   - ローカル/Claude Desktop: node mcpServer.js (stdioで直接起動)
+ *   - Apify Actor(Week 3〜): src/main.js が子プロセスとしてこのファイルをstdio起動し、
+ *     Streamable HTTP(/mcp)にプロキシする。課金(Actor.charge)はこのファイル内、
+ *     resolvePriceRangeが成功した直後に行う(pkg-health-actorのMCP Actorと同じ配線 —
+ *     Apify platform外や pay-per-event 未設定時は Actor.charge() が警告ログのみの
+ *     no-opになるため、Claude Desktop等からの直接起動でも安全)。
  */
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
+import { Actor } from 'apify';
 
 import { resolvePriceRange } from './src/resolvePriceRange.js';
 
@@ -42,6 +48,12 @@ server.registerTool(
     },
     async ({ carModel, year }) => {
         const result = await resolvePriceRange({ carModel, year });
+        // 課金は成功時(ok:true)のみ。carsensorのvalueScore/campfireのfundingRisk等、
+        // 既存Actor群と同じ「算出できなかった場合は課金しない」方針を踏襲する
+        // (.actor/pay_per_event.json の resolve-price-range-success 参照)。
+        if (result.ok) {
+            await Actor.charge({ eventName: 'resolve-price-range-success' });
+        }
         return {
             content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
             isError: result.ok === false && result.reason === 'error',
@@ -50,6 +62,18 @@ server.registerTool(
 );
 
 async function main() {
+    try {
+        // gracefulShutdown: false — このプロセスはApify Actor化後、親(src/main.js)から
+        // 起動される子プロセスになる。プロセスライフサイクル(SIGTERM等)は親の責務とし、
+        // ここではpay-per-eventの価格情報を読み込むためだけにinit()する
+        // (pkg-health-actorのMCP Actorと同じパターン)。ローカル/Claude Desktopから
+        // 直接起動された場合(Apify環境変数なし)もinit()自体は安全に失敗するだけなので、
+        // try/catchで握って続行する。
+        await Actor.init({ gracefulShutdown: false });
+    } catch (err) {
+        console.error('Actor.init() に失敗しました(課金は無効化されます):', err.message);
+    }
+
     const transport = new StdioServerTransport();
     await server.connect(transport);
     console.error('carcensor-price-range-mcp MCP server running on stdio');

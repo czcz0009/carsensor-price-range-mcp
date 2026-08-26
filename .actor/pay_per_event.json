@@ -1,0 +1,7 @@
+{
+	"resolve-price-range-success": {
+		"eventTitle": "Price range resolved",
+		"eventDescription": "Charged when resolvePriceRange successfully returns a price range (min/max/median) for the given car model and year. Not charged when the car model can't be resolved or no matching market data exists for that year.",
+		"eventPriceUsd": 0.03
+	}
+}

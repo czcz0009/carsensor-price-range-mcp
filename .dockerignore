@@ -1,0 +1,9 @@
+.idea
+.vscode
+.zed
+apify_storage
+crawlee_storage
+storage
+node_modules
+.git
+data

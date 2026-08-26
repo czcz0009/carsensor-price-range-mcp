@@ -1,0 +1,25 @@
+{
+	"$schema": "https://apify.com/schemas/v1/actor.ide.json",
+	"actorSpecification": 1,
+	"name": "carcensor-price-range-mcp",
+	"title": "carsensor Used-Car Price Range MCP Server",
+	"description": "MCP server exposing resolvePriceRange: given a car model and year, returns a fair-price range (min/max/median) computed from carsensor.net's own official used-car market-price data.",
+	"version": "0.1",
+	"buildTag": "latest",
+	"usesStandbyMode": true,
+	"meta": {
+		"templateId": "manual-js-mcp",
+		"generatedBy": "Claude Code with Claude Sonnet 5"
+	},
+	"minMemoryMbytes": 256,
+	"maxMemoryMbytes": 1024,
+	"defaultMemoryMbytes": 512,
+	"dockerfile": "./Dockerfile",
+	"webServerMcpPath": "/mcp",
+	"input": "./input_schema.json",
+	"output": "./output_schema.json",
+	"storages": {
+		"dataset": "./dataset_schema.json"
+	},
+	"readme": "../README.md"
+}

@@ -1,0 +1,12 @@
+{
+	"actorOutputSchemaVersion": 1,
+	"title": "Output schema of the carsensor Used-Car Price Range MCP Server",
+	"description": "This Actor is an MCP server: its real output is returned directly to an MCP client as the JSON result of the resolvePriceRange tool call, not written to a dataset. See README.md's 'Output' section for the response shape. The dataset linked below only ever contains one informational record, written when this Actor is run outside Standby mode (see dataset_schema.json).",
+	"properties": {
+		"datasetInfo": {
+			"type": "string",
+			"title": "Dataset (informational only, not the real product output)",
+			"template": "{{links.apiDefaultDatasetUrl}}/items?view=overview"
+		}
+	}
+}
